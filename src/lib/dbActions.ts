@@ -51,6 +51,18 @@ export async function addContact(contact: {
   // After adding, redirect to the list page
   redirect('/list');
 }
+export async function addNote(note: { note: string, owner: string, contactId: number }) {
+  await prisma.note.create({
+    data: {
+      note: note.note,
+      owner: note.owner,
+      contactId: note.contactId,
+      createdAt: new Date(),
+    },
+  });
+  // After adding, redirect to the list page
+  redirect('/list');
+}
 export async function editContact(contact: Contact) {
   // console.log(`editContact data: ${JSON.stringify(contact, null, 2)}`);
   await prisma.contact.update({
