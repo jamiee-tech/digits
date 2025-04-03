@@ -4,7 +4,10 @@
     { "email": "john@foo.com", "password": "changeme" }
   ],
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   "defaultContact": [
     {
       "firstName": "Philip",

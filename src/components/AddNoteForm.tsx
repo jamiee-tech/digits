@@ -18,7 +18,6 @@ const onSubmit = async (
     owner: string;
   },
 ) => {
-  // console.log(`onSubmit data: ${JSON.stringify(data, null, 2)}`);
   await addNote(data);
   swal('Success', 'Your contact has been added', 'success', {
     timer: 2000,
@@ -27,7 +26,6 @@ const onSubmit = async (
 
 const AddNoteForm = ({ contact }: { contact: Contact }) => {
   const { data: session, status } = useSession();
-  // console.log('AddStuffForm', status, session);
   const currentUser = session?.user?.email || '';
   const {
     register,

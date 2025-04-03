@@ -1,10 +1,9 @@
 'use client';
 
 import { Card, Image, ListGroup } from 'react-bootstrap';
-import { Contact } from '@prisma/client'; // Adjust the import path as necessary
+import { Contact } from '@prisma/client';
 import NoteItem from '@/components/NoteItem';
 
-/* Renders a single contact. See list/page.tsx. */
 const ContactCardAdmin = ({ contact, notes }: { contact: Contact, notes: Note[] }) => (
   <Card className="h-100">
     <Card.Header>
