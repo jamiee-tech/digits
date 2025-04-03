@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 generator client {
   provider = "prisma-client-js"
 }
@@ -47,6 +48,8 @@ enum Condition {
   poor
 }
 =======
+=======
+>>>>>>> Stashed changes
 import { PrismaClient, Role } from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
@@ -94,5 +97,9 @@ main()
     console.error(e);
     await prisma.$disconnect();
     process.exit(1);
+<<<<<<< Updated upstream
+  });
+>>>>>>> Stashed changes
+=======
   });
 >>>>>>> Stashed changes
