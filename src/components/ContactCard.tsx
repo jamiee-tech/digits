@@ -2,11 +2,10 @@
 
 import { Card, Image, ListGroup } from 'react-bootstrap';
 import Link from 'next/link';
-import { Contact } from '@prisma/client'; // Adjust the import path as necessary
+import { Contact } from '@prisma/client';
 import NoteItem from '@/components/NoteItem';
 import AddNoteForm from './AddNoteForm';
 
-/* Renders a single contact. See list/page.tsx. */
 const ContactCard = ({ contact, notes }: { contact: Contact, notes: Note[] }) => (
   <Card className="h-100">
     <Card.Header>
@@ -32,5 +31,4 @@ const ContactCard = ({ contact, notes }: { contact: Contact, notes: Note[] }) =>
     </Card.Footer>
   </Card>
 );
-
 export default ContactCard;

@@ -20,7 +20,6 @@ const onSubmit = async (
     owner: string;
   },
 ) => {
-  // console.log(`onSubmit data: ${JSON.stringify(data, null, 2)}`);
   await addContact(data);
   swal('Success', 'Your contact has been added', 'success', {
     timer: 2000,

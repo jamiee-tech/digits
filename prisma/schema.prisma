@@ -1,25 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  // for local development
   url      = env("DATABASE_URL")
-  // for Vercel
-  // url       = env("POSTGRES_PRISMA_URL")
-  // directUrl = env("POSTGRES_URL_NON_POOLING")
-}
-
-enum Role {
-  USER
-  ADMIN
 }
 
 model User {
@@ -29,35 +16,90 @@ model User {
   role     Role   @default(USER)
 }
 
+model Note {
+  id        Int      @id @default(autoincrement())
+  contactId Int
+  note      String
+  owner     String
+  createdAt DateTime @default(now())
+  Contact   Contact  @relation(fields: [contactId], references: [id])
+}
+
+model Contact {
+  id          Int    @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  address     String
+  image       String
+  description String
+  owner       String
+  notes       Note[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
 enum Condition {
   excellent
   good
   fair
   poor
 }
+=======
+=======
+>>>>>>> Stashed changes
+import { PrismaClient, Role } from '@prisma/client';
+import { hash } from 'bcrypt';
+import * as config from '../config/settings.development.json';
 
-model Stuff {
-  id        Int       @id @default(autoincrement())
-  name      String
-  quantity  Int
-  condition Condition
-  owner     String
+const prisma = new PrismaClient();
+
+async function main() {
+  console.log('Seeding the database');
+  const password = await hash('changeme', 10);
+  config.defaultAccounts.forEach(async (account) => {
+    let role: Role = 'USER';
+    if (account.role === 'ADMIN') {
+      role = 'ADMIN';
+    }
+    console.log(`  Creating user: ${account.email} with role: ${role}`);
+    await prisma.user.upsert({
+      where: { email: account.email },
+      update: {},
+      create: {
+        email: account.email,
+        password,
+        role,
+      },
+    });
+  });
+  config.defaultContact.forEach(async (contact, index) => {
+    console.log(`  Adding contact: ${contact.firstName} ${contact.lastName}`);
+    await prisma.contact.upsert({
+      where: { id: index },
+      update: {},
+      create: {
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        address: contact.address,
+        image: contact.image,
+        description: contact.description,
+        owner: contact.owner,
+      },
+    });
+  });
 }
-model Note{
-   id        Int      @id @default(autoincrement())
-    contactId Int
-    note      String
-    owner     String
-    createdAt DateTime @default(now())
-    Contact   Contact  @relation(fields: [contactId], references: [id])
-}
-model Contact{
-  id        Int       @id @default(autoincrement())
-  firstName      String
-  lastName      String
-  address      String
-  image      String
-  description      String
-  notes     Note[]
-  owner     String
-}
+main()
+  .then(() => prisma.$disconnect())
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+<<<<<<< Updated upstream
+  });
+>>>>>>> Stashed changes
+=======
+  });
+>>>>>>> Stashed changes
