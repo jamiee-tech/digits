@@ -166,5 +166,3 @@ To provide a simple example of a "super power" for Admin users, the Admin page l
 
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
 <img src="doc/admin.png">
-index.md
-6 KB
